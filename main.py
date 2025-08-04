@@ -30,9 +30,9 @@ print("\n🔎 Enter today's weather details to predict flood risk:")
 
 rainfall = st.number_input("🌧️ Rainfall (in mm): ")
 river_level = st.number_input("🌊 River level (in meters): ")
-temp = float(input("🌡️ Temperature (°C): "))
-humidity = float(input("💧 Humidity (%): "))
-wind = float(input("🍃 Wind Speed (km/h): "))
+temp = st.number_input("🌡️ Temperature (°C): ")
+humidity = st.number_input("💧 Humidity (%): ")
+wind = st.number_input("🍃 Wind Speed (km/h): ")
 
 # Format the input as a DataFrame
 new_data = pd.DataFrame([{
@@ -46,8 +46,10 @@ new_data = pd.DataFrame([{
 # Predict
 prediction = model.predict(new_data)
 
-# Show result
-print("\n📢 Prediction based on your input:")
-print("➡️ FLOOD ⚠️" if prediction[0] == 1 else "➡️ NO FLOOD ✅")
+# Show result and button
+if st.button("Submit"):
+    st.write("\n📢 Prediction based on your input:")
+    st.write("➡️ FLOOD ⚠️" if prediction[0] == 1 else "➡️ NO FLOOD ✅")
+
 
 
