@@ -49,7 +49,13 @@ prediction = model.predict(new_data)
 # Show result and button
 if st.button("Submit"):
     st.write("\n📢 Prediction based on your input:")
-    st.write("➡️ FLOOD ⚠️" if prediction[0] == 1 else "➡️ NO FLOOD ✅")
+    if prediction[0] == 2:
+    st.write("➡️ FLOOD ⚠️")
+elif prediction[0] == 1:
+    st.write("➡️ MAY FLOOD ⚠️")
+else:
+    st.write("➡️ NO FLOOD ✅")
+
 
 
 
