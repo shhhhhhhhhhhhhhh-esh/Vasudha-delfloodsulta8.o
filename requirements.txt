@@ -1,3 +1,4 @@
 streamlit
 scikit-learn
 pandas
+python-3.4
