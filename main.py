@@ -7,6 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
+from meteostat import Point, Daily
+from datetime import datetime
+import os
+
 # 1. Load the data
 df = pd.read_csv("delhi_flood_data_2023.csv")
 
@@ -28,19 +32,47 @@ print(classification_report(y_test, y_pred))
 
 print("\n🔎 Enter today's weather details to predict flood risk:")
 
-rainfall = st.number_input("🌧️ Rainfall (in mm): ")
-river_level = st.number_input("🌊 River level (in meters): ")
-temp = st.number_input("🌡️ Temperature (°C): ")
-humidity = st.number_input("💧 Humidity (%): ")
-wind = st.number_input("🍃 Wind Speed (km/h): ")
+
+def fetch_weather_data():
+    # Define location (Delhi)
+    delhi = Point(28.61, 77.23)
+
+    # Define the current date
+    today = datetime.now()
+
+    # Get daily weather data for today
+    data = Daily(delhi, today, today)
+    data = data.fetch()
+
+    if data.empty:
+        print("No weather data available for today.")
+        return
+
+    # Extract relevant weather information
+    weather_row = {
+        'datetime': today.isoformat(),
+        'temp': data['tavg'].values[0],
+        'precip': data['prcp'].values[0],
+        'wind_speed': data['wspd'].values[0]
+    }
+
+    df = pd.DataFrame([weather_row])
+
+    # Check if the file exists
+    file_exists = os.path.isfile('weather_data.csv')
+
+    # Save to CSV (append mode)
+    df.to_csv('weather_data.csv', mode='a', header=not file_exists, index=False)
+
+# Run the function to test
 
 # Format the input as a DataFrame
 new_data = pd.DataFrame([{
-    'Rainfall': rainfall,
+    'Precipitation': precip,
     'River_Level': river_level,
     'Temp': temp,
     'Humidity': humidity,
-    'Wind': wind
+    'Wind': wind_speed
 }])
 
 # Predict
@@ -55,6 +87,7 @@ if st.button("Submit"):
         st.write("➡️ MAY FLOOD ⚠️")
     else:
         st.write("➡️ NO FLOOD ✅")
+
 
 
 
