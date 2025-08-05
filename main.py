@@ -10,10 +10,9 @@ from sklearn.metrics import classification_report, accuracy_score
 from meteostat import Point, Daily
 from datetime import datetime
 import os
+import http.client
 
-# 1. Load the data
-df = pd.read_csv("delhi_flood_data_2023.csv")
-
+conn = http.client.HTTPSConnection("meteostat.p.rapidapi.com")
 # 2. Features and target
 X = df[['Rainfall', 'River_Level', 'Temp', 'Humidity', 'Wind']]
 y = df['Flood']
@@ -64,8 +63,6 @@ def fetch_weather_data():
     # Save to CSV (append mode)
     df.to_csv('weather_data.csv', mode='a', header=not file_exists, index=False)
 
-# Run the function to test
-
 # Format the input as a DataFrame
 new_data = pd.DataFrame([{
     'precip': precip,
@@ -87,6 +84,7 @@ if st.button("Submit"):
         st.write("➡️ MAY FLOOD ⚠️")
     else:
         st.write("➡️ NO FLOOD ✅")
+
 
 
 
