@@ -68,11 +68,11 @@ def fetch_weather_data():
 
 # Format the input as a DataFrame
 new_data = pd.DataFrame([{
-    'Precipitation': precip,
+    'precip': precip,
     'River_Level': river_level,
     'Temp': temp,
     'Humidity': humidity,
-    'Wind': wind_speed
+    'wind_speed': wind_speed
 }])
 
 # Predict
@@ -87,6 +87,7 @@ if st.button("Submit"):
         st.write("➡️ MAY FLOOD ⚠️")
     else:
         st.write("➡️ NO FLOOD ✅")
+
 
 
 
