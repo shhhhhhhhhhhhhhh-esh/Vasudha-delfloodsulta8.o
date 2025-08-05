@@ -13,8 +13,7 @@ import os
 import http.client
 
 conn = http.client.HTTPSConnection("meteostat.p.rapidapi.com")
-# 2. Features and target
-y = df['Flood']
+
 
 # 3. Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -83,6 +82,7 @@ if st.button("Submit"):
         st.write("➡️ MAY FLOOD ⚠️")
     else:
         st.write("➡️ NO FLOOD ✅")
+
 
 
 
