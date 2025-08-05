@@ -10,10 +10,6 @@ import http.client
 
 conn = http.client.HTTPSConnection("meteostat.p.rapidapi.com")
 
-
-print("\n🔎 Enter today's weather details to predict flood risk:")
-
-
 def fetch_weather_data():
     # Define location (Delhi)
     delhi = Point(28.61, 77.23)
@@ -66,6 +62,7 @@ if st.button("Submit"):
         st.write("➡️ MAY FLOOD ⚠️")
     else:
         st.write("➡️ NO FLOOD ✅")
+
 
 
 
