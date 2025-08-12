@@ -73,7 +73,7 @@ if weather and river_level:
     # ----- Rule-based check -----
     if river_level > 205.55:
         rule_alert = "WILL occur"
-        rule_flag = 1
+        rule_flag = 2
     elif river_level > 202:
         rule_alert = "MAY occur"
         rule_flag = 1
@@ -86,10 +86,11 @@ if weather and river_level:
 
     # ----- Combined decision -----
     st.subheader("🚨 Final Flood Risk Decision:")
-    if rule_flag == 1 or model_pred == 1:
-        st.error(f"Flood Likely! (Rule: {rule_alert}, Model: {'Likely' if model_pred == 1 else 'Unlikely'})")
+    if rule_flag == 1 or model_pred == 1 or rule_flag == 2 or model_pred == 2:
+        st.error(f"Flood Likely! (Rule: {rule_alert}, Model: {'Likely' if model_pred == 1 or model_pred == 2 else 'Unlikely'})")
     else:
-        st.success(f"No Flood Expected. (Rule: {rule_alert}, Model: {'Likely' if model_pred == 1 else 'Unlikely'})")
+        st.success(f"No Flood Expected. (Rule: {rule_alert}, Model: {'Likely' if model_pred == 1 or model_pred == 2 else 'Unlikely'})")
+
 
 
 
