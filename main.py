@@ -73,7 +73,7 @@ if weather and river_level:
       # Show river level rule-based prediction
     st.subheader("📢 River Level:")
     if river_level > 205.55:
-        st.error("🔴 ALERT: River level is above 205.55m. Flood WILL occur.")
+        st.error("🔴 ALERT: River level is above 205.55m. Flood WILL LIKELY occur.")
     elif river_level > 202:
         st.warning("🟠 WARNING: River level is above 202m. Flood MAY occur.")
     else:
@@ -88,6 +88,7 @@ if weather and river_level:
         st.error("⚠️ Model says: FLOOD LIKELY – Stay safe!")
     else:
         st.success("✅ Model says: NO FLOOD expected today.")
+
 
 
 
